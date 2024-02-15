@@ -12,6 +12,7 @@
   <div class="splashHeader">
     <div class="loginHeader">
       <div class="loggedOut"> <!-- TODO: Show me only to logged-out users -->
+
         <a>Login</a>
       </div>
       <div class="loggedIn"> <!-- TODO: Show me only to logged-in users -->
@@ -37,7 +38,7 @@
   <h2>Rooms</h2>
   <div class="rooms">
     <div class="roomList">
-      <a>{{room.id}}: <strong>{{room.name}}</strong></a>
+      <!-- Rooms will be added here by the script -->
     </div>
     <div class="noRooms">No rooms yet! You get to be first!</div> <!-- TODO: Show me only if roomList is empty -->
   </div>
@@ -49,7 +50,7 @@
     <h4>2</h4>
     <div class="loginHeader">
       <div class="loggedIn">
-        <a class="welcomeBack">
+        <a class="home">
           <span class="username">{{ Username }}</span>
           <span class="material-symbols-outlined md-18">person</span></a>
         </a>
@@ -60,20 +61,23 @@
     <div class="auth container">
       <h2>Welcome to Watch Party!</h2>
       <div class="alignedForm">
+        <!-- update username edit -->
         <label for="username">Username: </label>
-        <input name="username" value="{{ username }}">
-        <button>update</button>
+        <input name="username" id="new_username" value="{{ username }}">
+        <button id="updateUsernameButton">update</button>
+        <!-- update pw edit -->
         <label for="password">Password: </label>
-        <input type="password" name="password" value="{{ password }}">
-        <button>update</button>
+        <input type="password" name="password" id="new_password" value="{{ password }}">
+        <button id="updatePasswordButton">update</button>
         <label for="repeatPassword">Repeat: </label>
-        <input type="password" name="repeatPassword" value="{{ password }}">
+        <input type="password" name="repeatPassword" id="repeatPassword" value="{{ password }}">
+
         <error>Passwords don't match</error>
         <button class="exit goToSplash">Cool, let's go!</button>
         <button class="exit logout">Log out</button>
       </div>
     </div>
-  </div> 
+  </div>
 </div>
 
 <div class="login"> <!-- TODO: Show me only on "/login" -->
@@ -87,15 +91,16 @@
       <div class="alignedForm login">
         <label for="username">Username</label>
         <input name="username"></input>
-        <button>Login</button>
+        <button class="loginbutton">Login</button>
         <label for="password">Password</label>
         <input type="password" name="password">
       </div>
-      <div class="failed"> <!-- TODO: Hide me by default. Show only on failed login attempts -->
+      <!-- edit display -->
+      <div class="failed" id="loginFailedMessage" style="display: none;"> <!-- TODO: Hide me by default. Show only on failed login attempts -->
         <div class="message">
           Oops, that username and password don't match any of our users!
         </div>
-        <button>Create a new Account</button>
+        <button class="createAccount">Create a new Account</button>
       </div>
     </div>
   </div>
@@ -109,7 +114,7 @@
       <div class="displayRoomName"> <!-- TODO: Show me by default. Hide when user clicks the edit icon below -->
         <h3>
           Chatting in <strong>{{ room.name }}</strong>
-          <a><span class="material-symbols-outlined md-18">edit</span></a>
+          <a class="edit-icon"><span class="material-symbols-outlined md-18">edit</span></a>
         </h3>
       </div>
       <div class="editRoomName"> <!-- TODO: Hide me by default. Show when user clicks the edit icon above -->
@@ -118,12 +123,13 @@
           <button>Update</button>
         </h3>
       </div>
+      <!-- new edit id -->
       Invite users to this chat at:
-      <a>/rooms/{{ room_id }}</a>
+      <a id="inviteLink">/rooms/{{ room_id }}</a>
     </div>
     <div class="loginHeader">
       <div class="loggedIn">
-        <a class="welcomeBack">
+        <a class="home">
           <span class="username">{{ Username }}</span>
           <span class="material-symbols-outlined md-18">person</span></a>
         </a>
@@ -136,8 +142,8 @@
       <div class="chat">
         <div class="comment_box">
           <label for="comment">What do you have to say?</label>
-          <textarea name="comment"></textarea>
-          <button type="submit" value="Post">Post</button>
+          <textarea name="comment" id="messageInput"></textarea>
+          <button type="button" onclick="postMessage()">Post</button>
         </div>
         <div class="messages"> <!-- TODO: Replace with the content returned by the API -->
           <message>
@@ -155,9 +161,9 @@
           <message>
             <author>Chatty Cat</author>
             <content>
-              Meow meow meow meow meow meow meow meow meow meow meow 
-              meow meow meow meow meow meow meow meow meow meow meow 
-              meow meow meow meow meow meow meow meow meow meow meow 
+              Meow meow meow meow meow meow meow meow meow meow meow
+              meow meow meow meow meow meow meow meow meow meow meow
+              meow meow meow meow meow meow meow meow meow meow meow
             </content>
           </message>
           <message>
